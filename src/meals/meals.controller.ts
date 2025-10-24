@@ -1,7 +1,8 @@
-import { Controller, Get, Param, ParseIntPipe, Query, Post, Body} from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query, Post, Body, Patch} from '@nestjs/common';
 import { MealsService } from './meals.service';
 import { PaginationDTO } from './dto/pagination.dto';
 import { CreateMealDTO } from './dto/create-meal.dto';
+import { UpdateMealDTO } from './dto/update-meal.dto';
 
 @Controller('meals')
 export class MealsController {
@@ -14,12 +15,17 @@ export class MealsController {
     }
 
     @Get(':id')
-    findByID(@Param('id', ParseIntPipe) id: number){
+    findByID(@Param('id') id: string){
         return this.mealsService.findByID(id);
     }
 
     @Post()
     create(@Body() createMealDTO: CreateMealDTO) {
         return this.mealsService.create(createMealDTO);
+    }
+
+    @Patch(':id')
+    update(@Param('id') id: string, @Body() updateMealDTO: UpdateMealDTO) {
+        return this.mealsService.update(id, updateMealDTO);
     }
 }
