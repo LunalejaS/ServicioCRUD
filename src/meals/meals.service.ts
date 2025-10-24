@@ -3,9 +3,19 @@ import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, NotFoundError } from 'rxjs';
 import axios from 'axios';
 import { PaginationDTO } from './dto/pagination.dto';
+import { v4 as uuidv4 } from 'uuid';
+import { CreateMealDTO } from './dto/create-meal.dto';
 
 @Injectable()
 export class MealsService {
+    /*
+    NOTA: Debido a que la API no permite crear comidas, pues es una API únicamente de lectura
+    se simulara la creación de nuevos datos en la BD al crear un arreglo temporal donde se irán
+    almacenando estos datos.
+    */
+
+    private meals: any[] = [];
+
     constructor( private readonly httpService: HttpService ){}
     //'findAll' nos permitirá listar todas las comidas disponibles en la API de TheMealDB
     async findAllByPagination(paginationDTO: PaginationDTO){
@@ -29,5 +39,17 @@ export class MealsService {
         }
         //Retornamos la comida encontrada
         return data.meals[0];
+    }
+    //Crear una nueva comida de manera local
+    create(createMealDTO: CreateMealDTO){
+        const newMeal = {
+            id: uuidv4(),
+            ...createMealDTO,
+        };
+        this.meals.push(newMeal);
+        return {
+            message: "¡Nueva comida agragada con éxito!",
+            meal: newMeal,
+        };
     }
 }
