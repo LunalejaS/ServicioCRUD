@@ -57,9 +57,9 @@ export class MealsService {
             meal: newMeal,
         };
     }
-    //Actualizar una comida
+    //Actualizar una comida agregada temporalmente 
     update(id: string, updateMealDTO: Partial<CreateMealDTO>) {
-        const mealID = this.meals.findIndex(m => m.id == id);
+        const mealID = this.meals.findIndex(m => m.id === id);
         if (mealID === -1) {
             throw new NotFoundException(`No se encontró comida con ID ${id}`);
         }
@@ -67,6 +67,19 @@ export class MealsService {
         return {
             mesagge: "¡Comida actualizada con éxito!",
             meal: this.meals[mealID]
+        }
+    }
+    //Eliminar una comida agregada temporalmente
+    remove(id: string){
+        const mealID = this.meals.findIndex(m => m.id === id);
+        if (mealID === -1){
+            throw new NotFoundException(`No se encontró comida con ID ${id}`);
+        }
+
+        const removeMeal = this.meals.splice(mealID, 1);
+        return {
+            message: "Comida eliminada con éxito",
+            meal: removeMeal[0]
         }
     }
 }

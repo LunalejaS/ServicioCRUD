@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Query, Post, Body, Patch} from '@nestjs/common';
+import { Controller, Get, Param, Query, Post, Body, Patch, Delete} from '@nestjs/common';
 import { MealsService } from './meals.service';
 import { PaginationDTO } from './dto/pagination.dto';
 import { CreateMealDTO } from './dto/create-meal.dto';
@@ -27,5 +27,10 @@ export class MealsController {
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateMealDTO: UpdateMealDTO) {
         return this.mealsService.update(id, updateMealDTO);
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string){
+        return this.mealsService.remove(id);
     }
 }
