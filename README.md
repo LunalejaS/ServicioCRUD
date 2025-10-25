@@ -1,4 +1,4 @@
-#Servicio CRUD de Recetas usando al API pública TheMealBD
+# Servicio CRUD de Recetas usando al API pública TheMealBD
 
 En este proyecto desarrolle un cliente que consume los datos TheMealDB (https://www.themealdb.com/api.php) en **NestJS** que permite realizar operaciones **CRUD** sobre un catálogo de comidas.
 Haciendo uso de TheMealDB se pueden obtener (por paginación o por ID) comidas externas y por medio de un arreglo temporal en memoria (debido a que TheMealDB es una API de solo lectura) se pueden crear, actualizar y eliminar comidas.
